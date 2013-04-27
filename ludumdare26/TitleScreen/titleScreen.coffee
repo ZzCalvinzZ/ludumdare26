@@ -51,10 +51,10 @@ class game.TitleScreen extends lime.Sprite
             @appendChild shape
 
     flyOut: (tiles) ->
-        duration = .3
+        duration = .1
         for tile in tiles
             tile.runAction(new lime.animation.MoveTo(0, tile.getPosition().y).setDuration(duration))
-            duration += .3
+            duration += duration
 
 
 

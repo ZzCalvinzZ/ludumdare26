@@ -12,18 +12,38 @@ goog.require 'lime.animation.FadeTo'
 goog.require 'lime.animation.ScaleTo'
 goog.require 'lime.animation.MoveTo'
 
+goog.require('box2d.BodyDef');
+goog.require('box2d.BoxDef');
+goog.require('box2d.CircleDef');
+goog.require('box2d.CircleShape');
+goog.require('box2d.PolyDef');
+goog.require('box2d.Vec2');
+goog.require('box2d.JointDef');
+goog.require('box2d.MouseJointDef');
+goog.require('box2d.World');
+
 #Game requirements
 goog.require 'game.TitleScreen'
+goog.require 'game.GameScene'
 goog.require 'game.Player'
 
 # entrypoint
 game.start = ->
 
-    #lime.scheduleManager.setDisplayRate(1000 / 60)
-
+    lime.scheduleManager.setDisplayRate(1000 / 60)
     game.director = new lime.Director(document.body,1024,768)
 
+    game.world = setupWorld()
+
     game.titleScreen()
+
+setupWorld = ->
+    gravity = new box2d.Vec2(0, 200)
+    bounds = new box2d.AABB()
+    bounds.minVertex.Set -1024, -768
+    bounds.maxVertex.Set 2*1024, 2*768
+    new box2d.World(bounds, gravity, false)
+
 
 game.switchScene = (sceneContents, transition, duration) ->
     scene = new lime.Scene()
@@ -41,11 +61,9 @@ game.titleScreen = ->
 
     game.switchScene(scene, transition, 2)
 
+
 game.startGame = (mode) ->
-
-#game.switchScene myscene, lime.transitions.SlideInRight, .5
-
-
+    game.switchScene new game.GameScene(), lime.transitions.SlideInRight, 1
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
