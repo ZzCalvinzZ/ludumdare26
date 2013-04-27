@@ -36,7 +36,7 @@
           });
         }
         layer.appendChild(shape);
-        goog.events.listen(shape, ['mouseover'], function(e) {
+        goog.events.listen(shape, ['mouseover', 'click'], function(e) {
           e.target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1.2).setDuration(.2), new lime.animation.ScaleTo(1.15).setDuration(.1)));
           return e.swallow(['mouseout'], function() {
             e.target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1).setDuration(.2), new lime.animation.ScaleTo(1).setDuration(.3)));
