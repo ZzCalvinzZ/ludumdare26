@@ -12,14 +12,14 @@ class game.TitleScreen extends lime.Sprite
     draw: ->
 
         amount = 10
-        base = 700
+        base = 900
         for num in [amount..1]
-            newBase = base - Math.sqrt(num) * 200
+            newBase = base - Math.sqrt(num) * 270
             console.log newBase
 
             shape = new lime.RoundedRect()
             shape.setSize newBase , 50
-            shape.setFill 255, 150, 1
+            shape.setFill 33, 55, 45
             shape.setPosition 512, (775 - (718 / amount * num))
             shape.setPosition
             @appendChild shape

@@ -19,14 +19,14 @@
       var amount, base, newBase, num, shape, _i, _results;
 
       amount = 10;
-      base = 700;
+      base = 900;
       _results = [];
       for (num = _i = amount; amount <= 1 ? _i <= 1 : _i >= 1; num = amount <= 1 ? ++_i : --_i) {
-        newBase = base - Math.sqrt(num) * 200;
+        newBase = base - Math.sqrt(num) * 270;
         console.log(newBase);
         shape = new lime.RoundedRect();
         shape.setSize(newBase, 50);
-        shape.setFill(255, 150, 1);
+        shape.setFill(33, 55, 45);
         shape.setPosition(512, 775 - (718 / amount * num));
         shape.setPosition;
         _results.push(this.appendChild(shape));
