@@ -72,6 +72,10 @@ game.startGame = (mode) ->
     scene = new game.GameScene()
     game.switchScene scene, lime.transitions.SlideInRight, 1
 
+    player1 = new game.Player
+    scene.appendChild player1._shape
+    game.worldObjects.push player1
+
     circle = new game.Object
         x: 200
         y: 600
