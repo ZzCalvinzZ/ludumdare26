@@ -6,3 +6,4 @@ bin/external/*
 bin/projects
 .DS_Store
 
+*.js
