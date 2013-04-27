@@ -9,6 +9,6 @@ class game.Enemy extends game.Object
 
     constructor: (options) ->
         super
-        @_shape.setFill 0,100,0
+        @_shape.setFill 255,0,0
 
     updateFromBody: ->
