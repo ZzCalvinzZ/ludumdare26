@@ -1,5 +1,5 @@
 //set main namespace
-goog.provide('ludumdare26');
+goog.provide('game');
 
 
 //get requirements
@@ -13,18 +13,26 @@ goog.require('lime.animation.FadeTo');
 goog.require('lime.animation.ScaleTo');
 goog.require('lime.animation.MoveTo');
 
+//Game requirements
+goog.require('game.TitleScreen');
+
 
 // entrypoint
-ludumdare26.start = function(){
+game.start = function(){
 
-	var director = new lime.Director(document.body,1024,768),
-	    scene = new lime.Scene(),
+    lime.scheduleManager.setDisplayRate(1000 / 60);
 
+	game.director = new lime.Director(document.body,1024,768);
+
+    var scene = new lime.Scene(),
 	    target = new lime.Layer().setPosition(512,384),
         circle = new lime.Circle().setSize(150,150).setFill(255,150,0),
         lbl = new lime.Label().setSize(160,50).setFontSize(30).setText('TOUCH ME!'),
         title = new lime.Label().setSize(800,70).setFontSize(60).setText('Now move me around!')
             .setOpacity(0).setPosition(512,80).setFontColor('#999').setFill(200,100,0,.1);
+
+    // Title Screen Scene
+
 
 
     //add circle and label to target object
@@ -35,7 +43,7 @@ ludumdare26.start = function(){
     scene.appendChild(target);
     scene.appendChild(title);
 
-	director.makeMobileWebAppCapable();
+	game.director.makeMobileWebAppCapable();
 
     //add some interaction
     goog.events.listen(target,['mousedown','touchstart'],function(e){
@@ -66,10 +74,26 @@ ludumdare26.start = function(){
     });
 
 	// set current scene active
-	director.replaceScene(scene);
+	game.director.replaceScene(scene);
 
-}
+};
+
+game.titleScreen = function () {
+
+    var scene = new lime.Scene(),
+    layer = new lime.Layer();
+
+    scene.appendChild(layer);
+
+    var titleScreen = new TitleScreen();
+
+
+};
+
+game.startGame = function (mode) {
+
+};
 
 
 //this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
-goog.exportSymbol('ludumdare26.start', ludumdare26.start);
+goog.exportSymbol('game.start', game.start);

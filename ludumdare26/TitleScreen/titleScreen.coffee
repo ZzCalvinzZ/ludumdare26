@@ -1,1 +1,6 @@
-console.log 'hello'
+goog.provide 'game.TitleScreen'
+
+class TitleScreen
+
+    constructor: ->
+        console.log 'hello'
