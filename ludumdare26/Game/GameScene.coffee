@@ -28,11 +28,10 @@ class game.GameScene extends lime.Sprite
 
         ground = new game.Object
             x: game.WIDTH /2
-            y: game.HEIGHT - game.HEIGHT/4
+            y: game.HEIGHT - 30
             width: game.WIDTH
-            height: 10
-
-        ground._shape.setFill 155,155,155
+            height: 30
+        ground._shape.setFill 100,45,35
 
         @appendChild ground._shape
         @appendChild player1._shape
@@ -41,6 +40,9 @@ class game.GameScene extends lime.Sprite
         game.worldObjects.push ground
         game.worldObjects.push player1
         game.worldObjects.push enemy
+
+    moveWorld: ->
+        @setPosition @getPosition().x - 1, @getPosition().y
 
 
 

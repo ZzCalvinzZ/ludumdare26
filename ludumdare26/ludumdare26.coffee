@@ -44,6 +44,7 @@ game.start = ->
 
     lime.scheduleManager.schedule (dt) ->
         game.world.Step(dt / 1000, 3)
+        game.scene.moveWorld() if game.scene?
         for item in game.worldObjects
             item.updateFromBody()
 
@@ -75,6 +76,7 @@ game.titleScreen = ->
 
 game.startGame = (mode) ->
     scene = new game.GameScene()
+    game.scene = scene
     game.switchScene scene, lime.transitions.SlideInRight, 3
 
 
