@@ -1,18 +1,27 @@
 goog.provide 'game.TitleScreen'
 
 #get requirements
-goog.require 'lime.Circle'
+goog.require 'lime.RoundedRect'
 
 class game.TitleScreen extends lime.Sprite
 
     constructor: ->
         lime.Sprite.call @
         @draw()
-        console.log 'hello'
 
     draw: ->
-        shape = new lime.Circle()
-        shape.setSize 700, 200
-        shape.setFill 255, 150, 0
+
+        amount = 10
+        base = 700
+        for num in [amount..1]
+            newBase = base - Math.sqrt(num) * 200
+            console.log newBase
+
+            shape = new lime.RoundedRect()
+            shape.setSize newBase , 50
+            shape.setFill 255, 150, 1
+            shape.setPosition 512, (775 - (718 / amount * num))
+            shape.setPosition
+            @appendChild shape
 
 

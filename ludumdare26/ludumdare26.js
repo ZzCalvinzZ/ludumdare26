@@ -25,7 +25,6 @@
   game.start = function() {
     var circle, lbl, scene, target, title;
 
-    lime.scheduleManager.setDisplayRate(1000 / 60);
     game.director = new lime.Director(document.body, 1024, 768);
     scene = new lime.Scene();
     target = new lime.Layer().setPosition(512, 384);
@@ -42,7 +41,7 @@
       title.runAction(new lime.animation.FadeTo(1));
       e.startDrag();
       return e.swallow(['mouseup', 'touchend'], function() {
-        target.runAction(new lime.animation.Spawn, new lime.animation.FadeTo(1), new lime.animation.ScaleTo(1), new lime.animation.MoveTo(512, 384));
+        target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1), new lime.animation.ScaleTo(1), new lime.animation.MoveTo(512, 384)));
         return title.runAction(new lime.animation.FadeTo(0));
       });
     });
@@ -50,22 +49,22 @@
     return game.titleScreen();
   };
 
-  game.switchScene = function(sceneContents, animation) {
+  game.switchScene = function(sceneContents, transition, duration) {
     var layer, scene;
 
     scene = new lime.Scene();
     layer = new lime.Layer();
     scene.appendChild(layer);
     layer.appendChild(sceneContents);
-    return game.director.replaceScene(scene);
+    return game.director.replaceScene(scene, transition, duration);
   };
 
   game.titleScreen = function() {
     var scene, transition;
 
     scene = new game.TitleScreen();
-    transition = lime.transitions.SlideInRight;
-    return game.switchScene(scene, transition);
+    transition = lime.transitions.Dissolve;
+    return game.switchScene(scene, transition, 2);
   };
 
   game.startGame = function(mode) {};

@@ -19,7 +19,7 @@ goog.require 'game.TitleScreen'
 # entrypoint
 game.start = ->
 
-    lime.scheduleManager.setDisplayRate(1000 / 60)
+    #lime.scheduleManager.setDisplayRate(1000 / 60)
 
     game.director = new lime.Director(document.body,1024,768)
 
@@ -55,10 +55,11 @@ game.start = ->
 
         #listen for end event
         e.swallow ['mouseup','touchend'], ->
-            target.runAction(new lime.animation.Spawn
-                 new lime.animation.FadeTo(1)
-                ,new lime.animation.ScaleTo(1)
-                ,new lime.animation.MoveTo(512,384))
+            target.runAction(new lime.animation.Spawn(
+                new lime.animation.FadeTo(1),
+                new lime.animation.ScaleTo(1),
+                new lime.animation.MoveTo(512,384)
+            ))
 
             title.runAction(new lime.animation.FadeTo(0))
 
@@ -66,21 +67,21 @@ game.start = ->
     game.director.replaceScene(scene)
     game.titleScreen()
 
-game.switchScene = (sceneContents, animation) ->
+game.switchScene = (sceneContents, transition, duration) ->
     scene = new lime.Scene()
     layer = new lime.Layer()
 
     scene.appendChild layer
     layer.appendChild sceneContents
 
-    game.director.replaceScene(scene)
+    game.director.replaceScene(scene, transition, duration)
 
 game.titleScreen = ->
 
     scene = new game.TitleScreen()
-    transition = lime.transitions.SlideInRight
+    transition = lime.transitions.Dissolve
 
-    game.switchScene(scene, transition)
+    game.switchScene(scene, transition, 2)
 
 game.startGame = (mode) ->
 
