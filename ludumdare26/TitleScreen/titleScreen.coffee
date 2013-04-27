@@ -11,7 +11,7 @@ class game.TitleScreen extends lime.Sprite
         @draw()
 
     draw: ->
-        layer = new lime.Layer()
+        tiles = []
 
         amount = 10
         base = 900
@@ -27,11 +27,10 @@ class game.TitleScreen extends lime.Sprite
             if num is 5
                 shape.setFill 100, 45, 35
 
-                goog.events.listen shape, ['click'], (e) ->
+                goog.events.listen shape, ['click'], (e) =>
                     game.startGame()
+                    @flyOut(tiles)
 
-
-            layer.appendChild shape
 
             goog.events.listen shape, ['mouseover', 'click'], (e) ->
 
@@ -48,9 +47,16 @@ class game.TitleScreen extends lime.Sprite
                     ))
                     e.release()
 
+            tiles.push shape
+            @appendChild shape
 
-            layer.appendChild shape
+    flyOut: (tiles) ->
+        duration = .3
+        for tile in tiles
+            tile.runAction(new lime.animation.MoveTo(0, tile.getPosition().y).setDuration(duration))
+            duration += .3
 
-        @appendChild layer
+
+
 
 
