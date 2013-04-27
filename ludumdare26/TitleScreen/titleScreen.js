@@ -23,12 +23,17 @@
       _results = [];
       for (num = _i = amount; amount <= 1 ? _i <= 1 : _i >= 1; num = amount <= 1 ? ++_i : --_i) {
         newBase = base - Math.sqrt(num) * 270;
-        console.log(newBase);
         shape = new lime.RoundedRect();
         shape.setSize(newBase, 50);
         shape.setFill(33, 55, 45);
         shape.setPosition(512, 775 - (718 / amount * num));
-        shape.setPosition;
+        goog.events.listen(shape, ['mouseover'], function(e) {
+          e.target.setOpacity(0.8);
+          return e.swallow(['mouseout'], function() {
+            e.target.setOpacity(1);
+            return e.release();
+          });
+        });
         _results.push(this.appendChild(shape));
       }
       return _results;

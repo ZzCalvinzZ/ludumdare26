@@ -15,13 +15,22 @@ class game.TitleScreen extends lime.Sprite
         base = 900
         for num in [amount..1]
             newBase = base - Math.sqrt(num) * 270
-            console.log newBase
 
             shape = new lime.RoundedRect()
             shape.setSize newBase , 50
             shape.setFill 33, 55, 45
             shape.setPosition 512, (775 - (718 / amount * num))
-            shape.setPosition
+
+            goog.events.listen shape, ['mouseover'], (e) ->
+
+                e.target.setOpacity 0.8
+
+                e.swallow ['mouseout'], ->
+                    e.target.setOpacity 1
+                    e.release()
+
+
+
             @appendChild shape
 
 

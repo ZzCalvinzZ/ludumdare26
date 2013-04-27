@@ -1,7 +1,6 @@
 #set main namespace
 goog.provide 'game'
 
-
 #get requirements
 goog.require 'lime.Director'
 goog.require 'lime.Scene'
