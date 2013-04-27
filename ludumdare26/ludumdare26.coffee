@@ -11,6 +11,8 @@ goog.require 'lime.animation.Spawn'
 goog.require 'lime.animation.FadeTo'
 goog.require 'lime.animation.ScaleTo'
 goog.require 'lime.animation.MoveTo'
+goog.require 'lime.transitions.SlideInRight'
+goog.require 'lime.transitions.Dissolve'
 
 goog.require('box2d.BodyDef');
 goog.require('box2d.BoxDef');
@@ -68,6 +70,7 @@ game.titleScreen = ->
     transition = lime.transitions.Dissolve
 
     game.switchScene(scene, transition, 2)
+    scene.draw()
 
 
 game.startGame = (mode) ->
