@@ -28,6 +28,7 @@ goog.require 'game.GameScene'
 goog.require 'game.Player'
 goog.require 'game.Object'
 goog.require 'game.Bottom'
+goog.require 'game.Enemy'
 
 game.worldObjects = []
 
@@ -73,6 +74,12 @@ game.startGame = (mode) ->
     scene = new game.GameScene()
     game.switchScene scene, lime.transitions.SlideInRight, 1
 
+    enemy = new game.Enemy
+        x: 20
+        y: 20
+        width: 20
+        height: 20
+
     player1 = new game.Player
         x: 300
         y: game.HEIGHT /2
@@ -80,6 +87,7 @@ game.startGame = (mode) ->
         height: 50
         density: 2
 
+    scene.appendChild enemy._shape
     scene.appendChild player1._shape
     game.worldObjects.push player1
 
@@ -92,9 +100,9 @@ game.startGame = (mode) ->
     ground._shape.setFill 155,155,155
 
     scene.appendChild ground._shape
+    scene.appendChild enemy._shape
 
     game.worldObjects.push ground
-
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
 goog.exportSymbol('game.start', game.start)
