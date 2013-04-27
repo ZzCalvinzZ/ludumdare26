@@ -1,4 +1,5 @@
 (function() {
+  var myscene;
 
   goog.provide('game');
 
@@ -20,13 +21,20 @@
 
   goog.require('lime.animation.MoveTo');
 
+  goog.require('lime.transitions.SlideInRight');
+
+  goog.require('lime.transitions.Dissolve');
+
   goog.require('game.TitleScreen');
 
   goog.require('game.Player');
 
+  myscene = null;
+
   game.start = function() {
     game.director = new lime.Director(document.body, 1024, 768);
-    return game.titleScreen();
+    game.titleScreen();
+    return myscene = scene;
   };
 
   game.switchScene = function(sceneContents, transition, duration) {
@@ -42,10 +50,12 @@
     var scene, transition;
     scene = new game.TitleScreen();
     transition = lime.transitions.Dissolve;
-    return game.switchScene(scene, transition, 2);
+    return game.switchScene(scene, transition, .5);
   };
 
-  game.startGame = function(mode) {};
+  game.startGame = function(mode) {
+    return game.switchScene(myscene, lime.transitions.SlideInRight, .5);
+  };
 
   goog.exportSymbol('game.start', game.start);
 

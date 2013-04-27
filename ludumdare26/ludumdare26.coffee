@@ -11,12 +11,15 @@ goog.require 'lime.animation.Spawn'
 goog.require 'lime.animation.FadeTo'
 goog.require 'lime.animation.ScaleTo'
 goog.require 'lime.animation.MoveTo'
+goog.require 'lime.transitions.SlideInRight'
+goog.require 'lime.transitions.Dissolve'
 
 #Game requirements
 goog.require 'game.TitleScreen'
 goog.require 'game.Player'
 
 # entrypoint
+myscene = null
 game.start = ->
 
     #lime.scheduleManager.setDisplayRate(1000 / 60)
@@ -24,6 +27,8 @@ game.start = ->
     game.director = new lime.Director(document.body,1024,768)
 
     game.titleScreen()
+
+    myscene = scene
 
 game.switchScene = (sceneContents, transition, duration) ->
     scene = new lime.Scene()
@@ -39,9 +44,10 @@ game.titleScreen = ->
     scene = new game.TitleScreen()
     transition = lime.transitions.Dissolve
 
-    game.switchScene(scene, transition, 2)
+    game.switchScene(scene, transition, .5)
 
 game.startGame = (mode) ->
+    game.switchScene myscene, lime.transitions.SlideInRight, .5
 
 
 
