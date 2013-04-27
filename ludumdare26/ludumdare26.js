@@ -75,6 +75,7 @@ game.start = function(){
 
 	// set current scene active
 	game.director.replaceScene(scene);
+    game.titleScreen()
 
 };
 
@@ -85,7 +86,9 @@ game.titleScreen = function () {
 
     scene.appendChild(layer);
 
-    var titleScreen = new TitleScreen();
+    var titleScreen = new game.TitleScreen();
+
+    game.director.replaceScene(scene);
 
 
 };
