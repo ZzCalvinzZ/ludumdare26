@@ -12,7 +12,7 @@ class game.Object extends lime.Sprite
         bodyDef.rotation = options.rotation || 0
 
         shapeDef = new box2d.BoxDef
-        shapeDef.restitution = options.restitution || .9
+        shapeDef.restitution = options.restitution || 0
         shapeDef.density = options.density || 0
         shapeDef.friction = options.friction || 1;
         shapeDef.extents.Set options.width/2, options.height/2

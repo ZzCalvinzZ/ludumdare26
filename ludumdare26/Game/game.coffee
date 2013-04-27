@@ -13,15 +13,15 @@ goog.require 'lime.audio.Audio'
 
 class game.Game
 
-	constructor: ->
-		@.drawWorld()
+    constructor: ->
+        @.drawWorld()
 
-	drawWorld: ->
-		background = new lime.Layer()
-		platforms = new lime.Layer()
-		ladders = new lime.Layer()
+    drawWorld: ->
+        background = new lime.Layer()
+        platforms = new lime.Layer()
+        ladders = new lime.Layer()
 
-		sky = new lime.Sprite()
-		sky.setSize
+        sky = new lime.Sprite()
+        sky.setSize
 
-		background.appendChild sky
+        background.appendChild sky
