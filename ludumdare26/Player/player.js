@@ -5,28 +5,22 @@
 
   goog.provide('game.Player');
 
+  goog.require('game');
+
   goog.require('lime.Sprite');
+
+  goog.require('game.Object');
 
   game.Player = (function(_super) {
     __extends(Player, _super);
 
-    function Player() {
-      lime.Sprite.call(this);
-      this.draw();
+    function Player(options) {
+      Player.__super__.constructor.call(this, options);
+      this._shape.setFill(0, 100, 0);
     }
-
-    Player.prototype.draw = function() {
-      var player;
-
-      player = new lime.Circle();
-      player.setSize(40, 40);
-      player.setFill(0, 100, 0);
-      player.setPosition(500, 500);
-      return this.appendChild(player);
-    };
 
     return Player;
 
-  })(lime.Sprite);
+  })(game.Object);
 
 }).call(this);

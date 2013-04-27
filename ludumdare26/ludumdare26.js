@@ -22,10 +22,6 @@
 
   goog.require('lime.animation.MoveTo');
 
-  goog.require('lime.transitions.SlideInRight');
-
-  goog.require('lime.transitions.Dissolve');
-
   goog.require('box2d.BodyDef');
 
   goog.require('box2d.BoxDef');
@@ -54,10 +50,14 @@
 
   goog.require('game.Bottom');
 
+  goog.require('game.Enemy');
+
   game.worldObjects = [];
 
   game.start = function() {
-    game.director = new lime.Director(document.body, 1024, 768);
+    this.WIDTH = 1024;
+    this.HEIGHT = 768;
+    game.director = new lime.Director(document.body, game.WIDTH, game.HEIGHT);
     game.world = setupWorld();
     game.titleScreen();
     return lime.scheduleManager.schedule(function(dt) {
@@ -79,8 +79,8 @@
 
     gravity = new box2d.Vec2(0, 200);
     bounds = new box2d.AABB();
-    bounds.minVertex.Set(-1024, -768);
-    bounds.maxVertex.Set(2 * 1024, 2 * 768);
+    bounds.minVertex.Set(-game.WIDTH, -game.HEIGHT);
+    bounds.maxVertex.Set(2 * game.WIDTH, 2 * game.HEIGHT);
     return new box2d.World(bounds, gravity, true);
   };
 
@@ -95,23 +95,18 @@
   };
 
   game.titleScreen = function() {
-    return game.switchScene(new game.TitleScreen(), lime.transitions.Dissolve, .5);
+    var scene, transition;
+
+    scene = new game.TitleScreen();
+    transition = lime.transitions.Dissolve;
+    return game.switchScene(scene, transition, 2);
   };
 
   game.startGame = function(mode) {
-    var circle, scene;
+    var scene;
 
     scene = new game.GameScene();
-    game.switchScene(scene, lime.transitions.SlideInRight, 1);
-    circle = new game.Object({
-      x: 200,
-      y: 600,
-      width: 900,
-      height: 30
-    });
-    circle._shape.setFill(155, 155, 155);
-    scene.appendChild(circle._shape);
-    return game.worldObjects.push(circle);
+    return game.switchScene(scene, lime.transitions.SlideInRight, 1);
   };
 
   goog.exportSymbol('game.start', game.start);
