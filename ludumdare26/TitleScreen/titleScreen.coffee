@@ -23,10 +23,17 @@ class game.TitleScreen extends lime.Sprite
 
             goog.events.listen shape, ['mouseover'], (e) ->
 
-                e.target.setOpacity 0.8
+                e.target.runAction(new lime.animation.Spawn(
+                    new lime.animation.FadeTo(.8).setDuration(.2),
+                    new lime.animation.ScaleTo(1.1).setDuration(.3)
+                ))
+
 
                 e.swallow ['mouseout'], ->
-                    e.target.setOpacity 1
+                    e.target.runAction(new lime.animation.Spawn(
+                        new lime.animation.FadeTo(1).setDuration(.2),
+                        new lime.animation.ScaleTo(1).setDuration(.3)
+                    ))
                     e.release()
 
 
