@@ -6,6 +6,7 @@ goog.provide 'game.Bottom'
 class game.Object extends lime.Sprite
 
     constructor: (options) ->
+        console.log options
 
         bodyDef = new box2d.BodyDef
         bodyDef.position.Set options.x, options.y

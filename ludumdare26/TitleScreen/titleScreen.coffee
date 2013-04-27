@@ -8,7 +8,6 @@ class game.TitleScreen extends lime.Sprite
 
     constructor: ->
         lime.Sprite.call @
-        @draw()
 
     draw: ->
         tiles = []
@@ -51,7 +50,7 @@ class game.TitleScreen extends lime.Sprite
             @appendChild shape
 
     flyOut: (tiles) ->
-        duration = .1
+        duration = .3
         for tile in tiles
             tile.runAction(new lime.animation.MoveTo(0, tile.getPosition().y).setDuration(duration))
             duration += duration

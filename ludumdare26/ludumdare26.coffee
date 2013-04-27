@@ -11,6 +11,8 @@ goog.require 'lime.animation.Spawn'
 goog.require 'lime.animation.FadeTo'
 goog.require 'lime.animation.ScaleTo'
 goog.require 'lime.animation.MoveTo'
+goog.require 'lime.transitions.SlideInRight'
+goog.require 'lime.transitions.Dissolve'
 
 goog.require('box2d.BodyDef');
 goog.require('box2d.BoxDef');
@@ -68,41 +70,13 @@ game.titleScreen = ->
     transition = lime.transitions.Dissolve
 
     game.switchScene(scene, transition, 2)
+    scene.draw()
 
 
 game.startGame = (mode) ->
     scene = new game.GameScene()
     game.switchScene scene, lime.transitions.SlideInRight, 1
 
-    enemy = new game.Enemy
-        x: 20
-        y: 20
-        width: 20
-        height: 20
-
-    player1 = new game.Player
-        x: 300
-        y: game.HEIGHT /2
-        width: 50
-        height: 50
-        density: 2
-
-
-    ground = new game.Object
-        x: game.WIDTH /2
-        y: game.HEIGHT - game.HEIGHT/4
-        width: game.WIDTH
-        height: game.HEIGHT / 4
-
-    ground._shape.setFill 155,155,155
-
-    scene.appendChild ground._shape
-    scene.appendChild player1._shape
-    scene.appendChild enemy._shape
-
-    game.worldObjects.push ground
-    game.worldObjects.push player1
-    #game.worldObjects.push enemy
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
 goog.exportSymbol('game.start', game.start)
