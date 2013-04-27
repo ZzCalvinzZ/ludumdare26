@@ -2,6 +2,7 @@ goog.provide 'game.TitleScreen'
 
 #get requirements
 goog.require 'lime.RoundedRect'
+goog.require 'game'
 
 class game.TitleScreen extends lime.Sprite
 
@@ -10,6 +11,7 @@ class game.TitleScreen extends lime.Sprite
         @draw()
 
     draw: ->
+        layer = new lime.Layer()
 
         amount = 10
         base = 900
@@ -21,11 +23,21 @@ class game.TitleScreen extends lime.Sprite
             shape.setFill 33, 55, 45
             shape.setPosition 512, (775 - (718 / amount * num))
 
+            # Begin Game Menu Item
+            if num is 5
+                shape.setFill 100, 45, 35
+
+                goog.events.listen shape, ['click'], (e) ->
+                    game.startGame()
+
+
+            layer.appendChild shape
+
             goog.events.listen shape, ['mouseover'], (e) ->
 
                 e.target.runAction(new lime.animation.Spawn(
-                    new lime.animation.FadeTo(.8).setDuration(.2),
-                    new lime.animation.ScaleTo(1.1).setDuration(.3)
+                    new lime.animation.FadeTo(1.2).setDuration(.2),
+                    new lime.animation.ScaleTo(1.15).setDuration(.1)
                 ))
 
 
@@ -37,7 +49,8 @@ class game.TitleScreen extends lime.Sprite
                     e.release()
 
 
+            layer.appendChild shape
 
-            @appendChild shape
+        @appendChild layer
 
 
