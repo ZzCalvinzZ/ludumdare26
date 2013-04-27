@@ -87,9 +87,6 @@ game.startGame = (mode) ->
         height: 50
         density: 2
 
-    scene.appendChild enemy._shape
-    scene.appendChild player1._shape
-    game.worldObjects.push player1
 
     ground = new game.Object
         x: game.WIDTH /2
@@ -100,9 +97,12 @@ game.startGame = (mode) ->
     ground._shape.setFill 155,155,155
 
     scene.appendChild ground._shape
+    scene.appendChild player1._shape
     scene.appendChild enemy._shape
 
     game.worldObjects.push ground
+    game.worldObjects.push player1
+    #game.worldObjects.push enemy
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
 goog.exportSymbol('game.start', game.start)
