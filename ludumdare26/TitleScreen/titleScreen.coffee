@@ -33,7 +33,7 @@ class game.TitleScreen extends lime.Sprite
 
             layer.appendChild shape
 
-            goog.events.listen shape, ['mouseover'], (e) ->
+            goog.events.listen shape, ['mouseover', 'click'], (e) ->
 
                 e.target.runAction(new lime.animation.Spawn(
                     new lime.animation.FadeTo(1.2).setDuration(.2),

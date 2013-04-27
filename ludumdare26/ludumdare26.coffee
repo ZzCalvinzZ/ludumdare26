@@ -43,6 +43,9 @@ game.titleScreen = ->
 
 game.startGame = (mode) ->
 
+#game.switchScene myscene, lime.transitions.SlideInRight, .5
+
+
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
