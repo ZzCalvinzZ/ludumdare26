@@ -40,6 +40,7 @@ class game.GameScene extends lime.Sprite
 
         game.worldObjects.push ground
         game.worldObjects.push player1
+        game.worldObjects.push enemy
 
 
 
