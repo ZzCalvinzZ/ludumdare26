@@ -26,23 +26,29 @@ goog.require('box2d.World');
 goog.require 'game.TitleScreen'
 goog.require 'game.GameScene'
 goog.require 'game.Player'
+goog.require 'game.Object'
+goog.require 'game.Bottom'
+
+game.worldObjects = []
 
 # entrypoint
 game.start = ->
 
-    lime.scheduleManager.setDisplayRate(1000 / 60)
     game.director = new lime.Director(document.body,1024,768)
-
     game.world = setupWorld()
-
     game.titleScreen()
+
+    lime.scheduleManager.schedule (dt) ->
+        game.world.Step(dt / 1000, 3)
+        for item in game.worldObjects
+            item.updateFromBody()
 
 setupWorld = ->
     gravity = new box2d.Vec2(0, 200)
     bounds = new box2d.AABB()
     bounds.minVertex.Set -1024, -768
     bounds.maxVertex.Set 2*1024, 2*768
-    new box2d.World(bounds, gravity, false)
+    new box2d.World(bounds, gravity, true)
 
 
 game.switchScene = (sceneContents, transition, duration) ->
@@ -63,7 +69,20 @@ game.titleScreen = ->
 
 
 game.startGame = (mode) ->
-    game.switchScene new game.GameScene(), lime.transitions.SlideInRight, 1
+    scene = new game.GameScene()
+    game.switchScene scene, lime.transitions.SlideInRight, 1
+
+    circle = new game.Object
+        x: 200
+        y: 600
+        width: 900
+        height: 30
+
+    circle._shape.setFill 155,155,155
+
+    scene.appendChild circle._shape
+
+    game.worldObjects.push circle
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode

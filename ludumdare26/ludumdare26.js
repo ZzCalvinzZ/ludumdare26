@@ -50,11 +50,28 @@
 
   goog.require('game.Player');
 
+  goog.require('game.Object');
+
+  goog.require('game.Bottom');
+
+  game.worldObjects = [];
+
   game.start = function() {
-    lime.scheduleManager.setDisplayRate(1000 / 60);
     game.director = new lime.Director(document.body, 1024, 768);
     game.world = setupWorld();
-    return game.titleScreen();
+    game.titleScreen();
+    return lime.scheduleManager.schedule(function(dt) {
+      var item, _i, _len, _ref, _results;
+
+      game.world.Step(dt / 1000, 3);
+      _ref = game.worldObjects;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        item = _ref[_i];
+        _results.push(item.updateFromBody());
+      }
+      return _results;
+    });
   };
 
   setupWorld = function() {
@@ -64,7 +81,7 @@
     bounds = new box2d.AABB();
     bounds.minVertex.Set(-1024, -768);
     bounds.maxVertex.Set(2 * 1024, 2 * 768);
-    return new box2d.World(bounds, gravity, false);
+    return new box2d.World(bounds, gravity, true);
   };
 
   game.switchScene = function(sceneContents, transition, duration) {
@@ -82,7 +99,19 @@
   };
 
   game.startGame = function(mode) {
-    return game.switchScene(new game.GameScene(), lime.transitions.SlideInRight, 1);
+    var circle, scene;
+
+    scene = new game.GameScene();
+    game.switchScene(scene, lime.transitions.SlideInRight, 1);
+    circle = new game.Object({
+      x: 200,
+      y: 600,
+      width: 900,
+      height: 30
+    });
+    circle._shape.setFill(155, 155, 155);
+    scene.appendChild(circle._shape);
+    return game.worldObjects.push(circle);
   };
 
   goog.exportSymbol('game.start', game.start);
