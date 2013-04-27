@@ -33,8 +33,9 @@ game.worldObjects = []
 
 # entrypoint
 game.start = ->
-
-    game.director = new lime.Director(document.body,1024,768)
+    @WIDTH = 1024
+    @HEIGHT = 768
+    game.director = new lime.Director(document.body,game.WIDTH,game.HEIGHT)
     game.world = setupWorld()
     game.titleScreen()
 
@@ -46,8 +47,8 @@ game.start = ->
 setupWorld = ->
     gravity = new box2d.Vec2(0, 200)
     bounds = new box2d.AABB()
-    bounds.minVertex.Set -1024, -768
-    bounds.maxVertex.Set 2*1024, 2*768
+    bounds.minVertex.Set -game.WIDTH, -game.HEIGHT
+    bounds.maxVertex.Set 2*game.WIDTH, 2*game.HEIGHT
     new box2d.World(bounds, gravity, true)
 
 
@@ -74,24 +75,25 @@ game.startGame = (mode) ->
 
     player1 = new game.Player
         x: 300
-        y: 500
+        y: game.HEIGHT /2
         width: 50
         height: 50
-        
+        density: 2
+
     scene.appendChild player1._shape
     game.worldObjects.push player1
 
-    circle = new game.Object
-        x: 200
-        y: 600
-        width: 900
-        height: 30
+    ground = new game.Object
+        x: game.WIDTH /2
+        y: game.HEIGHT - game.HEIGHT/4
+        width: game.WIDTH
+        height: game.HEIGHT / 4
 
-    circle._shape.setFill 155,155,155
+    ground._shape.setFill 155,155,155
 
-    scene.appendChild circle._shape
+    scene.appendChild ground._shape
 
-    game.worldObjects.push circle
+    game.worldObjects.push ground
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
