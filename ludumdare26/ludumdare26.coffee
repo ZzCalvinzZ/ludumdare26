@@ -67,7 +67,7 @@ game.switchScene = (sceneContents, transition, duration) ->
 game.titleScreen = ->
 
     scene = new game.TitleScreen()
-    transition = lime.transitions.Dissolve
+    transition = lime.transitions.SlideInRight
 
     game.switchScene(scene, transition, 2)
     scene.draw()
@@ -75,7 +75,7 @@ game.titleScreen = ->
 
 game.startGame = (mode) ->
     scene = new game.GameScene()
-    game.switchScene scene, lime.transitions.SlideInRight, 1
+    game.switchScene scene, lime.transitions.SlideInRight, 3
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode

@@ -50,10 +50,17 @@ class game.TitleScreen extends lime.Sprite
             @appendChild shape
 
     flyOut: (tiles) ->
-        duration = .3
-        for tile in tiles
-            tile.runAction(new lime.animation.MoveTo(0, tile.getPosition().y).setDuration(duration))
-            duration += duration
+        i = 0
+        runAnim = ->
+            animation = new lime.animation.MoveTo(0, tiles[i].getPosition().y).setDuration(.2)
+            tiles[i++].runAction(animation)
+            goog.events.listen animation,lime.animation.Event.STOP, ->
+                if i < tiles.length
+                    runAnim()
+
+        runAnim()
+
+
 
 
 
