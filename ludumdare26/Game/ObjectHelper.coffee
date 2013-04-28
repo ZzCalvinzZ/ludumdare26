@@ -1,20 +1,16 @@
-goog.provide 'game.GameScene'
+goog.provide 'game.ObjectHelper'
 
-#get requirements
-goog.require 'game.Object'
 goog.require 'game.Player'
+goog.require 'game.Object'
 goog.require 'game.Enemy'
-goog.require 'game.ObjectHelper'
+goog.require 'game'
 
+class game.ObjectHelper
 
-class game.GameScene extends lime.Sprite
+    constructor: (scene) ->
+        @scene = scene
 
-    constructor: ->
-        lime.Sprite.call @
-        @oh = new game.ObjectHelper(@)
-        @init()
-
-    init: ->
+    init: () ->
         enemy = new game.Enemy
             x: 20
             y: 20
@@ -43,10 +39,8 @@ class game.GameScene extends lime.Sprite
         game.worldObjects.push player1
         game.worldObjects.push enemy
 
-
-    moveWorld: ->
-        @setPosition @getPosition().x - 1, @getPosition().y
-
-
-
+    addFloor: (x, y, width, height, color) ->
+        floor = new game.Object x:x, y:y, width:width, height:height, color: color
+        @scene.appendChild floor
+        game.worldObjects.push floor
 

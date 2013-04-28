@@ -17,47 +17,50 @@
     }
 
     TitleScreen.prototype.draw = function() {
-      var amount, base, newBase, num, shape, tiles, _i, _results,
+      var amount, base, newBase, num, shape, tiles, _i,
         _this = this;
 
       tiles = [];
       amount = 10;
       base = 900;
-      _results = [];
       for (num = _i = amount; amount <= 1 ? _i <= 1 : _i >= 1; num = amount <= 1 ? ++_i : --_i) {
         newBase = base - Math.sqrt(num) * 270;
         shape = new lime.RoundedRect();
         shape.setSize(newBase, 50);
         shape.setFill(33, 55, 45);
-        shape.setPosition(512, 775 - (718 / amount * num));
+        shape.setPosition(3024, 775 - (718 / amount * num));
         if (num === 5) {
           shape.setFill(100, 45, 35);
           goog.events.listen(shape, ['click'], function(e) {
             game.startGame();
-            return _this.flyOut(tiles);
+            return _this.fly('out', tiles);
           });
         }
         goog.events.listen(shape, ['mouseover', 'click'], function(e) {
-          e.target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1.2).setDuration(.2), new lime.animation.ScaleTo(1.15).setDuration(.1)));
+          e.target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1.2).setDuration(.3), new lime.animation.ScaleTo(1.15).setDuration(.1)));
           return e.swallow(['mouseout'], function() {
             e.target.runAction(new lime.animation.Spawn(new lime.animation.FadeTo(1).setDuration(.2), new lime.animation.ScaleTo(1).setDuration(.3)));
             return e.release();
           });
         });
         tiles.push(shape);
-        _results.push(this.appendChild(shape));
+        this.appendChild(shape);
       }
-      return _results;
+      return this.fly('in', tiles);
     };
 
-    TitleScreen.prototype.flyOut = function(tiles) {
+    TitleScreen.prototype.fly = function(type, tiles) {
       var i, runAnim;
 
       i = 0;
       runAnim = function() {
         var animation;
 
-        animation = new lime.animation.MoveTo(0, tiles[i].getPosition().y).setDuration(.2);
+        if (type === 'in') {
+          animation = new lime.animation.MoveTo(512, tiles[i].getPosition().y).setDuration(.1);
+        } else if (type === 'out') {
+          animation = new lime.animation.MoveTo(0, tiles[i].getPosition().y).setDuration(.1);
+        }
         tiles[i++].runAction(animation);
         return goog.events.listen(animation, lime.animation.Event.STOP, function() {
           if (i < tiles.length) {

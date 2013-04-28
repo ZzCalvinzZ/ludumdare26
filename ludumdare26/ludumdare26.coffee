@@ -29,7 +29,6 @@ goog.require 'game.TitleScreen'
 goog.require 'game.GameScene'
 goog.require 'game.Player'
 goog.require 'game.Object'
-goog.require 'game.Bottom'
 goog.require 'game.Enemy'
 
 game.worldObjects = []
@@ -70,7 +69,7 @@ game.titleScreen = ->
     scene = new game.TitleScreen()
     transition = lime.transitions.SlideInRight
 
-    game.switchScene(scene, transition, 2)
+    game.switchScene(scene)
     scene.draw()
 
 
