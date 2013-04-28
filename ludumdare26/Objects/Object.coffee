@@ -1,7 +1,7 @@
 goog.provide 'game.Object'
-goog.provide 'game.Bottom'
 
 #get requirements
+goog.require 'lime.fill.Fill'
 
 class game.Object extends lime.Sprite
 
@@ -25,6 +25,11 @@ class game.Object extends lime.Sprite
         @_shape.setPosition options.x, options.y
         @_shape.setSize options.width, options.height
         @_shape.setRotation options.rotation || 0
+
+        if options.color?
+            fill = new lime.fill.Fill
+            fill.setCanvasStyle options.color
+            @_shape.setFill options.color
 
     updateFromBody: ->
         @_shape.setPosition @_body.GetCenterPosition()

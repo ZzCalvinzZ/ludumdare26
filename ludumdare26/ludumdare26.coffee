@@ -29,7 +29,6 @@ goog.require 'game.TitleScreen'
 goog.require 'game.GameScene'
 goog.require 'game.Player'
 goog.require 'game.Object'
-goog.require 'game.Bottom'
 goog.require 'game.Enemy'
 
 game.worldObjects = []
@@ -44,6 +43,7 @@ game.start = ->
 
     lime.scheduleManager.schedule (dt) ->
         game.world.Step(dt / 1000, 3)
+        game.scene.moveWorld() if game.scene?
         for item in game.worldObjects
             item.updateFromBody()
             if (item.inputListen) 
@@ -70,15 +70,16 @@ game.switchScene = (sceneContents, transition, duration) ->
 game.titleScreen = ->
 
     scene = new game.TitleScreen()
-    transition = lime.transitions.Dissolve
+    transition = lime.transitions.SlideInRight
 
-    game.switchScene(scene, transition, 2)
+    game.switchScene(scene)
     scene.draw()
 
 
 game.startGame = (mode) ->
     scene = new game.GameScene()
-    game.switchScene scene, lime.transitions.SlideInRight, 1
+    game.scene = scene
+    game.switchScene scene, lime.transitions.SlideInRight, 3
 
 
 #this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode

@@ -20,7 +20,7 @@ class game.TitleScreen extends lime.Sprite
             shape = new lime.RoundedRect()
             shape.setSize newBase , 50
             shape.setFill 33, 55, 45
-            shape.setPosition 512, (775 - (718 / amount * num))
+            shape.setPosition 3024, (775 - (718 / amount * num))
 
             # Begin Game Menu Item
             if num is 5
@@ -28,13 +28,13 @@ class game.TitleScreen extends lime.Sprite
 
                 goog.events.listen shape, ['click'], (e) =>
                     game.startGame()
-                    @flyOut(tiles)
+                    @fly('out',tiles)
 
 
             goog.events.listen shape, ['mouseover', 'click'], (e) ->
 
                 e.target.runAction(new lime.animation.Spawn(
-                    new lime.animation.FadeTo(1.2).setDuration(.2),
+                    new lime.animation.FadeTo(1.2).setDuration(.3),
                     new lime.animation.ScaleTo(1.15).setDuration(.1)
                 ))
 
@@ -48,12 +48,23 @@ class game.TitleScreen extends lime.Sprite
 
             tiles.push shape
             @appendChild shape
+        @fly('in', tiles)
 
-    flyOut: (tiles) ->
-        duration = .3
-        for tile in tiles
-            tile.runAction(new lime.animation.MoveTo(0, tile.getPosition().y).setDuration(duration))
-            duration += duration
+    fly: (type, tiles) ->
+        i = 0
+        runAnim = ->
+            if type == 'in'
+                animation = new lime.animation.MoveTo(512, tiles[i].getPosition().y).setDuration(.1)
+            else if type == 'out'
+                animation = new lime.animation.MoveTo(0, tiles[i].getPosition().y).setDuration(.1)
+            tiles[i++].runAction(animation)
+            goog.events.listen animation,lime.animation.Event.STOP, ->
+                if i < tiles.length
+                    runAnim()
+
+        runAnim()
+
+
 
 
 
