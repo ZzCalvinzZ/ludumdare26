@@ -24,6 +24,7 @@ class game.Object extends lime.Sprite
         @_shape = new lime.RoundedRect()
         @_shape.setPosition options.x, options.y
         @_shape.setSize options.width, options.height
+        @_shape.setRotation options.rotation || 0
 
     updateFromBody: ->
         @_shape.setPosition @_body.GetCenterPosition()

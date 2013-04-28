@@ -25,12 +25,15 @@ class game.GameScene extends lime.Sprite
             width: 50
             height: 50
             density: 2
+            friction: 0
 
         ground = new game.Object
             x: game.WIDTH /2
             y: game.HEIGHT - game.HEIGHT/4
             width: game.WIDTH
             height: 10
+            friction: 0
+            rotation: 0
 
         ground._shape.setFill 155,155,155
 

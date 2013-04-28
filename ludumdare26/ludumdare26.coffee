@@ -14,15 +14,15 @@ goog.require 'lime.animation.MoveTo'
 goog.require 'lime.transitions.SlideInRight'
 goog.require 'lime.transitions.Dissolve'
 
-goog.require('box2d.BodyDef');
-goog.require('box2d.BoxDef');
-goog.require('box2d.CircleDef');
-goog.require('box2d.CircleShape');
-goog.require('box2d.PolyDef');
-goog.require('box2d.Vec2');
-goog.require('box2d.JointDef');
-goog.require('box2d.MouseJointDef');
-goog.require('box2d.World');
+goog.require 'box2d.BodyDef'
+goog.require 'box2d.BoxDef'
+goog.require 'box2d.CircleDef'
+goog.require 'box2d.CircleShape'
+goog.require 'box2d.PolyDef'
+goog.require 'box2d.Vec2'
+goog.require 'box2d.JointDef'
+goog.require 'box2d.MouseJointDef'
+goog.require 'box2d.World'
 
 #Game requirements
 goog.require 'game.TitleScreen'
@@ -46,6 +46,9 @@ game.start = ->
         game.world.Step(dt / 1000, 3)
         for item in game.worldObjects
             item.updateFromBody()
+            if (item.inputListen) 
+                item.inputListen() 
+
 
 setupWorld = ->
     gravity = new box2d.Vec2(0, 200)
