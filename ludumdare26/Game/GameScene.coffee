@@ -48,7 +48,7 @@ class game.GameScene extends lime.Sprite
 
 
     moveWorld: ->
-        @setPosition @getPosition().x - 1, @getPosition().y
+       # @setPosition @getPosition().x - 1, @getPosition().y
 
 
 
