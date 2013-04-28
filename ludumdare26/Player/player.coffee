@@ -19,6 +19,7 @@ class game.Player extends game.Object
 
     constructor: (options) ->
         super(options)
+        @_body.preventRotation = true
         @_shape.setFill 0,100,0
         
     updateVelocity: (x)->
@@ -28,8 +29,14 @@ class game.Player extends game.Object
             #@_body.ApplyForce(vel, @_body.GetCenterPosition())
             console.log 'jump'         
         else 
-            vel = new box2d.Vec2 x,0
-            @_body.SetLinearVelocity (vel)
+            if @_body.m_linearVelocity.x >300
+                @_body.m_linearVelocity.x = 300
+            else if @_body.m_linearVelocity.x <-300
+                @_body.m_linearVelocity.x = -300
+            else
+                @_body.WakeUp()
+                vel = new box2d.Vec2 x,0
+                @_body.ApplyImpulse(vel, @_body.GetCenterPosition())
 
 
     inputListen: ->
@@ -37,8 +44,8 @@ class game.Player extends game.Object
         goog.events.listen window, [goog.events.EventType.KEYDOWN], (e) ->
             switch e.keyCode
                 when 37 
-                    that.updateVelocity -400
+                    that.updateVelocity -500
                 when 39 
-                    that.updateVelocity 400
+                    that.updateVelocity 500
                 when 32
                     that.updateVelocity 'jump'

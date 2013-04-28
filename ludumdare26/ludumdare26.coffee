@@ -32,7 +32,6 @@ goog.require 'game.Object'
 goog.require 'game.Enemy'
 
 game.worldObjects = []
-game.inputDelay = 500
 
 # entrypoint
 game.start = ->
@@ -47,10 +46,8 @@ game.start = ->
         game.scene.moveWorld() if game.scene?
         for item in game.worldObjects
             item.updateFromBody()
-    lime.scheduleManager.scheduleWithDelay (dt,@,inputDelay) ->
-        if (item.inputListen) 
-            item.inputListen() 
-
+            if (item.inputListen) 
+                item.inputListen() 
 
 
 setupWorld = ->
